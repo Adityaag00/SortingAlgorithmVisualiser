@@ -7,24 +7,21 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class pnlAnimation extends JPanel {
-   
-    
+
     private static final long serialVersionUID = 1L;
-    final private int DEFAULT_WIN_WIDTH = 1030;
-    final private int DEFAULT_WIN_HEIGHT = 720;
+    final private int DEFAULT_WIN_WIDTH = 1500;
     private static final double BAR_HEIGHT_PERCENT = 680 / 720.0;
-    final private int BAR_WIDTH = 5;
+    final private int BAR_WIDTH = 2;
 
-    public int numbars = DEFAULT_WIN_WIDTH / BAR_WIDTH;
+    public int numbers = DEFAULT_WIN_WIDTH / BAR_WIDTH;
 
-    int arr[], barColor[];
+    public int arr[], barColor[];
 
     public pnlAnimation() {
-        setSize(1080, 720);
-        arr = new int[numbars];
-        barColor = new int[numbars];
+        arr = new int[numbers];
+        barColor = new int[numbers];
 
-        for (int i = 0; i < numbars; i++) {
+        for (int i = 0; i < numbers; i++) {
            arr[i] = i;
            barColor[i] = 0;
        }
@@ -45,13 +42,13 @@ public class pnlAnimation extends JPanel {
 
     public void shuffle() {
         Random rnd = new Random();
-        for (int i = 0; i < numbars; i++) {
-           swap(i, rnd.nextInt(numbars - 1));
+        for (int i = 0; i < numbers; i++) {
+           swap(i, rnd.nextInt(numbers - 1));
         }
     }
 
     public void resetColors() {
-         for (int i = 0; i < numbars; i++) {
+         for (int i = 0; i < numbers; i++) {
             barColor[i] = 0;
          }
          repaint();
@@ -63,14 +60,29 @@ public class pnlAnimation extends JPanel {
         arr[y] = tmp;
         barColor[x] = 100;
         barColor[y] = 100;
-        repaint(12);
+        repaint(6);
+    }
+
+    public void pancakeSwap(int x, int y) {
+        int tmp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = tmp;
+        barColor[x] = 100;
+        barColor[y] = 100;
+        repaint(1);
     }
 
      public void update(int x, int value) {
         arr[x] = value;
         barColor[x] = 100;
-        repaint(12);
+        repaint(4);
      }
+
+    public void updateCount(int x, int value) {
+        arr[x] = value;
+        barColor[x] = 100;
+        repaint(7);
+    }
 
      @Override
      public void repaint(long milliseconds) {
@@ -82,7 +94,7 @@ public class pnlAnimation extends JPanel {
      }
 
      public void finalise() throws InterruptedException {
-         for(int i=0;i<numbars;i++) {
+         for(int i = 0; i< numbers; i++) {
              barColor[i]=100;
              repaint();
              Thread.sleep(5);
@@ -94,8 +106,9 @@ public class pnlAnimation extends JPanel {
      public void paintComponent(Graphics g) {
         int maxValue = Arrays.stream(arr).max().orElse(Integer.MIN_VALUE);
         g.setColor(Color.DARK_GRAY);
+        int DEFAULT_WIN_HEIGHT = 1000;
         g.fillRect(0, 0, DEFAULT_WIN_WIDTH, DEFAULT_WIN_HEIGHT);
-        for (int i = 0; i < numbars; i++) {
+        for (int i = 0; i < numbers; i++) {
             double currentValue = arr[i];
             double percentOfMax = currentValue / maxValue;
             double heightPercentOfPanel = percentOfMax * BAR_HEIGHT_PERCENT;
@@ -115,6 +128,5 @@ public class pnlAnimation extends JPanel {
            if (barColor[i] > 0)
               barColor[i] -= 5;
         }
-
      }
 }

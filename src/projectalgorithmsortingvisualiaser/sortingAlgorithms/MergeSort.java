@@ -1,16 +1,22 @@
 
-package projectalgorithmsortingvisualiaser;
+package projectalgorithmsortingvisualiaser.sortingAlgorithms;
 
 
-public class MergeSort {
+import projectalgorithmsortingvisualiaser.pnlAnimation;
+
+public class MergeSort implements Sort{
     
     private pnlAnimation ani;
     
     public MergeSort(pnlAnimation ani) {
         this.ani=ani;
     }
+
+    public void sort() {
+        sort(ani.arr,0,ani.arr.length-1);
+    }
     
-    public void sort(int ar[],int l,int r) {
+    private void sort(int ar[],int l,int r) {
         if(l<r) {
             int mid=(l+r)/2;
             sort(ar,l,mid);

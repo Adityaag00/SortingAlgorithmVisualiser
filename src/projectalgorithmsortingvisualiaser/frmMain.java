@@ -1,5 +1,7 @@
 package projectalgorithmsortingvisualiaser;
 
+import projectalgorithmsortingvisualiaser.sortingAlgorithms.*;
+
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -46,7 +48,9 @@ public class frmMain extends JFrame implements Runnable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BubbleSort", "InsertionSort", "MergeSort", "SelectionSort", "HeapSort", " " }));
+        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]
+                { "BubbleSort", "InsertionSort", "MergeSort", "SelectionSort", "HeapSort",
+                        "QuickSort","CountSort","RadixSort","CycleSort","PancakeSort","BitonicSort"," " }));
 
         btnStart.setText("Start");
 
@@ -54,7 +58,7 @@ public class frmMain extends JFrame implements Runnable {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(ani, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ani, javax.swing.GroupLayout.PREFERRED_SIZE, 1500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -69,7 +73,7 @@ public class frmMain extends JFrame implements Runnable {
                         .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnStart))
                         .addComponent(btnReset)
-                    .addComponent(ani, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ani, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
     }
@@ -136,7 +140,6 @@ public class frmMain extends JFrame implements Runnable {
                 }
                 else if(sel.equals("InsertionSort")) {
                     new InsertionSort(ani).sort();
-                    
                 }
                 else if(sel.equals("SelectionSort")){
                     new SelectionSort(ani).sort();
@@ -145,7 +148,23 @@ public class frmMain extends JFrame implements Runnable {
                     new HeapSort(ani).sort();
                 }
                 else if(sel.equals("MergeSort")) {
-                    new MergeSort(ani).sort(ani.arr,0,ani.arr.length-1);
+                    new MergeSort(ani).sort();
+                }
+                else if(sel.equals("QuickSort")) {
+                    new QuickSort(ani).sort();
+                }
+                else if(sel.equals("CountSort")) {
+                    new CountSort(ani).sort();
+                }
+                else if(sel.equals("RadixSort")) {
+                    new RadixSort(ani).sort();
+                }
+                else if(sel.equals("CycleSort")) {
+                    new CycleSort(ani).sort();
+                }else if(sel.equals("PancakeSort")) {
+                    new PancakeSort(ani).sort();
+                }else if(sel.equals("BitonicSort")) {
+                    new BitonicSort(ani).sort();
                 }
                 ani.finalise();
             } catch (InterruptedException e) {

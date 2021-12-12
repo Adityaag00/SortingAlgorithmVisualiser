@@ -1,11 +1,13 @@
 
-package projectalgorithmsortingvisualiaser;
+package projectalgorithmsortingvisualiaser.sortingAlgorithms;
+
+import projectalgorithmsortingvisualiaser.pnlAnimation;
 
 /**
  *
  * @author Aditya
  */
-public class SelectionSort {
+public class SelectionSort implements Sort{
     
     pnlAnimation ani;
     

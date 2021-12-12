@@ -1,6 +1,8 @@
-package projectalgorithmsortingvisualiaser;
+package projectalgorithmsortingvisualiaser.sortingAlgorithms;
 
-public class BubbleSort {
+import projectalgorithmsortingvisualiaser.pnlAnimation;
+
+public class BubbleSort implements Sort{
 
    pnlAnimation ani;
 

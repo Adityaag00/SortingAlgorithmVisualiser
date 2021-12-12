@@ -1,8 +1,10 @@
 
-package projectalgorithmsortingvisualiaser;
+package projectalgorithmsortingvisualiaser.sortingAlgorithms;
 
 
-public class HeapSort {
+import projectalgorithmsortingvisualiaser.pnlAnimation;
+
+public class HeapSort implements Sort{
     pnlAnimation ani;
     
     public HeapSort(pnlAnimation ani) {

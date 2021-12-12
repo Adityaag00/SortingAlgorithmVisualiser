@@ -1,6 +1,8 @@
-package projectalgorithmsortingvisualiaser;
+package projectalgorithmsortingvisualiaser.sortingAlgorithms;
 
-public class InsertionSort {
+import projectalgorithmsortingvisualiaser.pnlAnimation;
+
+public class InsertionSort implements Sort{
    pnlAnimation ani;
 
    public InsertionSort(pnlAnimation ani) {
