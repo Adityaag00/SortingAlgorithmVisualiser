@@ -1,5 +1,6 @@
 package projectalgorithmsortingvisualiaser;
 
+import projectalgorithmsortingvisualiaser.auth.Login;
 import projectalgorithmsortingvisualiaser.sortingAlgorithms.*;
 
 import java.awt.Color;
@@ -11,9 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-/**
- * frmMain
- */
+
 public class frmMain extends JFrame implements Runnable {
     private static final long serialVersionUID = 1L;
     static Thread thrd;
@@ -35,7 +34,7 @@ public class frmMain extends JFrame implements Runnable {
         Toolkit tkt= Toolkit.getDefaultToolkit();
         setSize(tkt.getScreenSize());
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         sel=String.valueOf(cmbSort.getSelectedItem());
     }
     
@@ -50,9 +49,16 @@ public class frmMain extends JFrame implements Runnable {
 
         cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]
                 { "BubbleSort", "InsertionSort", "MergeSort", "SelectionSort", "HeapSort",
-                        "QuickSort","CountSort","RadixSort","CycleSort","PancakeSort","BitonicSort"," " }));
+                        "QuickSort","CountSort","RadixSort","CycleSort","PancakeSort","BitonicSort","CombSort",
+                        "StoogeSort","GnomeSort"," " }));
 
         btnStart.setText("Start");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                dispose();
+                Constant.frmSelector.setVisible(true);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,9 +124,7 @@ public class frmMain extends JFrame implements Runnable {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-                new frmMain();
-        });
+        SwingUtilities.invokeLater(Login::firstWind);
 
     }
 
@@ -165,6 +169,18 @@ public class frmMain extends JFrame implements Runnable {
                     new PancakeSort(ani).sort();
                 }else if(sel.equals("BitonicSort")) {
                     new BitonicSort(ani).sort();
+                }
+                else if(sel.equals("CombSort")) {
+                    new CombSort(ani).sort();
+                }
+                else if(sel.equals("StoogeSort")) {
+                    new StoogeSort(ani).sort();
+                }
+                else if(sel.equals("GnomeSort")) {
+                    new GnomeSort(ani).sort();
+                }
+                else {
+                    System.out.println("Select a sorting algorithm");
                 }
                 ani.finalise();
             } catch (InterruptedException e) {
