@@ -2,6 +2,7 @@ package projectalgorithmsortingvisualiaser.auth;
 
 import projectalgorithmsortingvisualiaser.LeaderboardDTO;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,16 +60,23 @@ public class ConnToDB {
 		}
 	}
 	
-	void insertData (String fname,String lname,String email,String passwd) {
+	boolean insertData (String fname,String lname,String email,String passwd) {
 		try {
+			boolean flag = doesUserExist(email);
+			System.out.println("here2");
+			if(flag) {
+				return false;
+			}
 			String sqll = "insert into person (f_name,l_name,Email,Password) values ('"+ fname +"','"+ lname +"','"+ email +"','"+ passwd +"')";
+			this.config("person_DB","root","tiger");
 			connect.prepareStatement(sqll).executeUpdate();
-			
 			connect.close();
+			return true;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public void updateLeaderBoard(String email) {
@@ -81,6 +89,21 @@ public class ConnToDB {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean doesUserExist(String email) throws SQLException {
+		String sql = "select count(email) from person where email='"+email+"'";
+		ResultSet res = statement.executeQuery(sql);
+		System.out.println("here4");
+		if(res.next()) {
+			System.out.println(res.toString());
+			int count = res.getInt(1);
+			System.out.println(count);
+			if(count>0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public List<LeaderboardDTO> getLeaderBoard() {

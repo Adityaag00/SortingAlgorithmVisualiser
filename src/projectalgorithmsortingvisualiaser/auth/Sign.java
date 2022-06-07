@@ -1,10 +1,14 @@
 package projectalgorithmsortingvisualiaser.auth;
 
+import projectalgorithmsortingvisualiaser.Constant;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Sign {
 // Begin Class
@@ -25,6 +29,12 @@ public class Sign {
 		frmSignUp.setResizable(false);
 		frmSignUp.setTitle("Sign up");
 		frmSignUp.setLocationRelativeTo(null);
+		frmSignUp.addWindowListener(new java.awt.event.WindowAdapter() {
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				frmSignUp.dispose();
+				frmLogin.setVisible(true);
+			}
+		});
 		frmSignUp.getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -423,8 +433,7 @@ public class Sign {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				saveInDatabase();
-				frmSignUp.setVisible(false);
-				frmLogin.setVisible(true);
+
 			}
 		});
 		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -473,27 +482,37 @@ public class Sign {
 		if ( ( (fname.isEmpty()) || (lname.isEmpty()) || (email.isEmpty()) || (passwd1.isEmpty()) || (passwd2.isEmpty()) ) || ( (fname.contains("Enter First name")) || (lname.contains("Enter Last name")) || (email.contains("Enter Email")) || (passwd1.contains("Enter Password")) || (passwd2.contains("Enter Password")) ) ) {
 			// label.setText(null);
 			JOptionPane.showMessageDialog(null,"Missing Data!!\\nComplete tuple data to save in Database.");
+			return;
 		}
-		
+		String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(email);
+		if (!matcher.matches()) {
+			JOptionPane.showMessageDialog(null,"email not valid");
+		}
 		else {
-			
 			if ( !(passwd1.equals(passwd2)) ) {
-				// label.setText("Uncompatible password !");
 				JOptionPane.showMessageDialog(null,"Uncompatible password !");
 			}
-			
 			else {
 				// label.setText(null);
 				ConnToDB cc = new ConnToDB("");
-				cc.insertData(fname,lname,email,passwd1);
-				JOptionPane.showMessageDialog(null,"Data saved successfully");
+				System.out.println("here");
+				boolean flag = cc.insertData(fname,lname,email,passwd1);
+				if(flag) {
+					JOptionPane.showMessageDialog(null,"Data saved successfully");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Email exists");
+				}
 				txtFirstName.setText(null);
 				txtLastName.setText(null);
 				txtEmail.setText(null);
 				pwdPassword1.setText(null);
 				pwdPassword2.setText(null);
+				frmSignUp.setVisible(false);
+				frmLogin.setVisible(true);
 			}
-			
 		}
 		
 	// End saveInDatabase()
